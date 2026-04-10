@@ -35,18 +35,19 @@ while True:
 #5. Ciclo anidado 
 #Escribe un programa que imprima una tabla de multiplicar del 1 al 3, usando un ciclo for dentro de otro for.
 
-
+for tabla in range (1, 4):
+    print(f" Tabla del {tabla}:")
+    for i in range(1, 11):
+        resultado = tabla * i
+        print(f" {tabla} x {i} = {resultado}")
+    print("...")
+    
 #6. Uso de continue 
 #Recorre una lista de nombres. Si el nombre es "Juan", omítelo usando continue. Imprime todos los demás. 
+lista_nombres = ["Felipe", "Nicolas", "Juan", "Pedro", "Antonio"]
+for nombre in lista_nombres:
+    if nombre != "Juan":
+        print(nombre)
+    else:
+        continue
 
-
-
-"""
-Entregables 
-• Carpeta comprimida (.zip) que contenga: 
-• El archivo ciclos.py 
-• Un documento README.txt donde respondas: 
-• ¿Cuál fue la diferencia principal que notaste entre for y while? 
-• ¿Te pareció útil el uso de break y continue? ¿Por qué?
-
-"""
