@@ -99,6 +99,21 @@ class Admin(Usuario):
     def __init__(self, nombre):
         super().__init__(nombre)
 
+    #imprime el menu principal
+    def menu_principal(self):
+        print("  ----------------------------------------  ")
+        print("----         3D STORE MENU ADMIN        ----")
+        print("  ----------------------------------------  ")
+        print("----     Ingresa numero de la opcion    ----")
+        print("(1) Ver catálogo de productos."              ) 
+        print("(2) Crear nuevo producto"                    ) 
+        print("(3) Actualizar producto del catalogo"        )
+        print("(4) Eliminar producto del catalogo"          ) 
+        print("(5) Guardar catalogo en archivo"             ) 
+        print("(0) Salir."                                  ) 
+        print("  ----------------------------------------  ")
+
+
 class Cliente(Usuario):
     def __init__(self, nombre):
         super().__init__(nombre)    
@@ -390,7 +405,25 @@ if opcion == "1": #cliente
                 print("❌ opcion no valida, solo numeros del 0 al 5")
 
 elif opcion == "2": #admin
-    pass
+    while True:
+        admin.menu_principal()
+        opcion_admin = input(" ")
+        match opcion_admin:
+            case "1": #1. Listar productos del catálogo.
+                pass
+            case "2": #2. Crear producto nuevo indicando al menos: id, nombre, categoría, precio.
+                pass
+            case "3": #3. Actualizar producto (por ejemplo, cambiar nombre, precio o categoría).
+                pass
+            case "4": #4. Eliminar producto del catálogo.
+                pass
+            case "5": #5. Guardar catálogo en archivo (ej: catalogo.txt o catalogo.csv).
+                pass
+            case "0":
+                break
+            case _:
+                print("❌ opcion no valida, solo numeros del 0 al 5")
+
 elif opcion == "3": #salir
     print("  ----------------------------------------  ")
     print("----    Ten un buen dia, vuelve pronto  ----")
