@@ -1,88 +1,11 @@
-"""
-1) Propósito
-    Re-estructurar el ecommerce de consola desarrollado en el Módulo 3 usando Programación
-    Orientada a Objetos en Python, incorporando roles y utilizando:
-    • Clases, atributos y métodos (colaboración y composición).
-    • Herencia simple para diferenciar tipos de usuarios.
-    • Manejo de excepciones para validar y controlar errores.
-    • Lectura/escritura de archivos de texto para guardar información básica del sistema.
-2) Descripción general de la app
-    La aplicación será un Ecommerce por consola con dos roles:
-    • ADMIN
-    o Gestiona el catálogo de productos.
-    • CLIENTE
-    o Navega por el catálogo, agrega productos al carrito y confirma compras.
-    Al iniciar, el programa pregunta si el usuario se identificará como ADMIN o CLIENTE y muestra el
-    menú correspondiente.
-3) Requisitos funcionales
-    3.1. Rol ADMIN
-        El ADMIN debe poder:
-        1. Listar productos del catálogo.
-        2. Crear producto nuevo indicando al menos: id, nombre, categoría, precio.
-        3. Actualizar producto (por ejemplo, cambiar nombre, precio o categoría).
-        4. Eliminar producto del catálogo.
-        5. Guardar catálogo en archivo (ej: catalogo.txt o catalogo.csv).
-        El catálogo inicial puede cargarse desde el código o, opcionalmente, leerse desde un archivo al inicio.
-    3.2. Rol CLIENTE
-        El CLIENTE debe poder:
-        1. Ver catálogo de productos.
-        2. Buscar productos por nombre o categoría.
-        3. Agregar productos al carrito, indicando:
-        o id del producto.
-        o cantidad (entero > 0).
-        4. Ver carrito y total:
-        o Listar ítems (nombre, cantidad, precio unitario, subtotal).
-        o Mostrar total a pagar.
-        5. Confirmar compra:
-        o Si el carrito está vacío, avisar y no permitir la compra.
-        o Registrar la compra en un archivo de texto simple (ej: ordenes.txt) con fecha/hora,
-        productos y total.
-        o Vaciar el carrito tras confirmar.
-    3.3. Manejo de errores (excepciones)
-        • Deben manejarse casos como:
-        o ID de producto inexistente.
-        o Cantidad menor o igual a 0.
-        o Archivos que no se pueden abrir/escribir.
-        • Debe utilizarse al menos una excepción personalizada (por ejemplo,
-        ProductoNoEncontradoError o CantidadInvalidaError) además de excepciones estándar
 
-4) Requisitos técnicos
-    La solución debe:
-    1. Estar implementada en Python, ejecutable en consola.
-    2. Incluir clases que reflejen la estructura del problema. Ejemplo (puedes adaptarlo):
-        o Producto
-        o Catalogo (contiene muchos Producto)
-        o Carrito (contiene ítems de producto + cantidad)
-        o Usuario (clase base)
-        o Admin y Cliente (heredan de Usuario)
-        o Aplicacion o Tienda (coordina la ejecución y menús)
-    3. Aplicar:
-        o Composición: por ejemplo, Carrito tiene una colección de productos.
-        o Herencia: Admin y Cliente extienden a Usuario, con comportamientos distintos.
-    4. Usar métodos claros para cada acción importante:
-        o agregar/eliminar/actualizar producto,
-        o agregar al carrito,
-        o calcular total,
-        o guardar/leer de archivo, etc.
-    5. Usar excepciones con bloques try/except y, cuando corresponda, finally.
-    6. Usar archivos de texto para:
-        o Guardar catálogo (opcional pero recomendado).
-        o Registrar compras (obligatorio).
-    7. Mantener buena legibilidad:
-        o Nombres en snake_case.
-        o Identación correcta.
-        o Comentarios breves donde sea necesario.
-    No se debe usar bases de datos, librerías externas, frameworks web ni temas que no se hayan pasado
-    en el módulo.
-5) Entregables
-    • Código fuente (por ejemplo):
-    o main.py
-    o Otros archivos .py si se separa en módulos (opcional, pero recomendable).
-    • (Opcional) Un archivo README.md o .txt con:
-    o Descripción breve de la app.
-    o Cómo ejecutar el programa.
+ #   • (Opcional) Un archivo README.md o .txt con:
+  #  o Descripción breve de la app.
+   # o Cómo ejecutar el programa.
 
-"""
+
+from datetime import datetime
+
 class ProductoNoEncontradoError(Exception):
     """Se lanza cuando se busca un producto que no existe en el catálogo."""
     pass
@@ -113,6 +36,66 @@ class Admin(Usuario):
         print("(0) Salir."                                  ) 
         print("  ----------------------------------------  ")
 
+    def crear_producto(self):
+        print("  ----------------------------------------  ")
+        print("         AGREGAR NUEVO PRODUCTO"             )
+        print("  ----------------------------------------  ")
+        try: 
+            id = int(input("Ingrese el id del producto: "))
+            nuevo_nombre = input("Ingrese el nombre del producto: ")
+            nueva_categoria = input("Ingrese la categoria del producto: ")  
+            nuevo_precio = float(input("Ingrese el precio del producto: "))
+            catalogo.agregar_producto(Producto(id, nuevo_nombre, nueva_categoria, nuevo_precio))
+        except ValueError:
+            print(" ❌ Ingrese solo numeros ")
+
+
+    def eliminar_producto(self):
+        print("  ----------------------------------------  ")
+        print("         ELIMINAR PRODUCTO"                  )        
+        print("  ----------------------------------------  ")
+        try:
+            id = int(input("Ingrese el id del producto a eliminar: "))
+            catalogo.eliminar_producto(id)     
+        except ValueError:
+            print(" ❌ Ingrese solo numeros ")
+
+    def actualizar_producto(self):
+        try:
+            id_producto = int(input("Ingrese el id del producto a actualizar: "))
+        except ValueError:
+            print(" ❌ Ingrese solo numeros ")
+            return
+        else:
+            for producto in catalogo.productos:
+                if producto.id == id_producto:
+                    print("  ----------------------------------------  ")
+                    print("           ACTUALIZAR PRODUCTO"              )        
+                    print("  ----------------------------------------  ")
+                    print("----     Ingresa numero de la opcion    ----")
+                    print("(1) Actualizar nombre"            ) 
+                    print("(2) Actualizar categoria"         ) 
+                    print("(3) Actualizar precio"            ) 
+                    print("  ----------------------------------------  ")
+                    opcion = input("  ")
+                    if opcion == "1": #actualizar nombre
+                        nombre_nuevo = input("Ingrese nuevo nombre: ")
+                        catalogo.actualizar_producto(id_producto, nombre_nuevo, producto.categoria, producto.precio)
+                        print(" ✅ --- Se actualizo el nombre del producto ---")
+                    elif opcion == "2": #actualizar categoria
+                        categoria_nueva = input("Ingrese nueva categoria: ")
+                        catalogo.actualizar_producto(id_producto, producto.nombre, categoria_nueva, producto.precio)
+                        print(" ✅ --- Se actualizo la categoria del producto ---")
+                    elif opcion == "3": #actualizar precio      
+                        precio_nuevo = input("Ingrese nuevo precio: $")
+                        if not precio_nuevo.isdigit():
+                            print(" ❌ Ingrese solo numeros ")
+                            return
+                        catalogo.actualizar_producto(id_producto, producto.nombre, producto.categoria, float(precio_nuevo))
+                        print(" ✅ --- Se actualizo el precio del producto ---")
+                    else:
+                        print("❌ opcion no valida, solo numeros 1, 2, 3")
+                        return  
 
 class Cliente(Usuario):
     def __init__(self, nombre):
@@ -129,7 +112,8 @@ class Cliente(Usuario):
         print("(2) Buscar producto por nombre o categoría." ) 
         print("(3) Agregar producto al carrito."            )
         print("(4) Ver carrito y total."                    ) 
-        print("(5) Vaciar carrito."                         ) 
+        print("(5) Confirmar compra."                       ) 
+        print("(6) Vaciar carrito."                         ) 
         print("(0) Salir."                                  ) 
         print("  ----------------------------------------  ")
 
@@ -224,7 +208,7 @@ class Cliente(Usuario):
                         for a in range(cantidad):
                             self.carrito.agregar_item(producto) #agrega los productos encontrados a resultados
                         print("")
-                        print(f" --- Se agrego {a} unidades de {producto.nombre} al carrito | ${a * producto.precio}")
+                        print(f" ✅ --- Se agrego {a} unidades de {producto.nombre} al carrito | ${a * producto.precio}")
                         estado = True
             elif tipo_busqueda == "id":
                 if nombre_busqueda.isdigit():
@@ -234,7 +218,7 @@ class Cliente(Usuario):
                             for a in range(1,cantidad):
                                 self.carrito.agregar_item(producto) #agrega los productos encontrados a resultados
                             print("")
-                            print(f" --- Se agrego {a} unidades de {producto.nombre} al carrito | ${a * producto.precio}")
+                            print(f" ✅ --- Se agrego {a} unidades de {producto.nombre} al carrito | ${a * producto.precio}")
                             estado = True
                 else:
                     print(" ❌ Ingrese solo numeros ")
@@ -276,7 +260,7 @@ class Catalogo:
                 producto.precio = nuevo_precio
                 break
         else:
-            print("Producto no encontrado") 
+            print(" ❌ Producto no encontrado") 
 
     def guardar_catalogo(self, archivo):
         try:
@@ -333,7 +317,7 @@ class Carrito:
 
     def vaciar_carrito(self):
         self.items = []
-        print(" --- El carrito se vacio ---")
+        
 
     def calcular_total(self):
         total = 0
@@ -361,7 +345,34 @@ class Carrito:
         else:
             print(" *** El carrito esta vacio ***")
 
-
+    def confirmar_carrito(self):
+        if self.items:  
+            item_set = set(self.items)
+            total_carrito = 0
+            try:
+                fecha_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                with open("compra.txt", "a", encoding="utf-8") as f:
+                    f.write("  ----------------------------------------  \n")
+                    f.write("          DETALLE COMPRA 3D STORE \n"          )
+                    f.write("  ----------------------------------------  \n")
+                    f.write(f"Fecha y hora: {fecha_hora}\n")
+                    f.write("  ----------------------------------------  \n")
+                    f.write(f"{' NOMBRE':<12} | {'PRECIO UNITARIO':<15}  | {'CANTIDAD':<8} | {'SUBTOTAL':<10}\n")
+                    for item in item_set:
+                        cantidad = self.items.count(item)
+                        subtotal = item.precio * cantidad
+                        total_carrito += subtotal
+                        f.write(f" {item.nombre:<11} |  ${item.precio:<14} | {cantidad:^8} |  ${subtotal:<10}\n")
+                    f.write(f"                                      TOTAL = ${total_carrito}\n")      
+                self.vaciar_carrito()  
+                print(" ✅ Compra confirmada, se guardo en compra.txt")                        
+            except FileNotFoundError:
+                print(" ❌ Archivo no encontrado")
+            except PermissionError:
+                print(" ❌ No tienes permisos para escribir en el archivo")      
+        else:
+            print(" *** El carrito esta vacio ***")
+        
 #___________________________________________________________________________________________--
 
 def menu_inicial():
@@ -398,8 +409,14 @@ if opcion == "1": #cliente
             case "4":
                 cliente.carrito.ver_carrito()
             case "5":
+                cliente.carrito.confirmar_carrito()
+            case "6":
                 cliente.carrito.vaciar_carrito()
-            case "0":
+                print(" ✅ --- El carrito se vacio ---")
+            case "0": #salir
+                print("  ----------------------------------------  ")
+                print("----    Ten un buen dia, vuelve pronto  ----")
+                print("  ----------------------------------------  ")
                 break
             case _:
                 print("❌ opcion no valida, solo numeros del 0 al 5")
@@ -410,16 +427,19 @@ elif opcion == "2": #admin
         opcion_admin = input(" ")
         match opcion_admin:
             case "1": #1. Listar productos del catálogo.
-                pass
+                catalogo.ver_catalogo()
             case "2": #2. Crear producto nuevo indicando al menos: id, nombre, categoría, precio.
-                pass
+                admin.crear_producto()
             case "3": #3. Actualizar producto (por ejemplo, cambiar nombre, precio o categoría).
-                pass
+                admin.actualizar_producto()
             case "4": #4. Eliminar producto del catálogo.
-                pass
+                admin.eliminar_producto()
             case "5": #5. Guardar catálogo en archivo (ej: catalogo.txt o catalogo.csv).
-                pass
-            case "0":
+                catalogo.guardar_catalogo("catalogo.txt")
+            case "0": #salir
+                print("  ----------------------------------------  ")
+                print("----    Ten un buen dia, vuelve pronto  ----")
+                print("  ----------------------------------------  ")
                 break
             case _:
                 print("❌ opcion no valida, solo numeros del 0 al 5")
