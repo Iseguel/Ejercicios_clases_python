@@ -1,0 +1,69 @@
+{% extends 'miapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <div class="bg-dark text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Bienvenido a MyProject</h1>
+            <p class="lead">Impresión 3D y Fabricación Digital</p>
+            <a class="btn btn-primary btn-lg mt-3" href="/contacto/">Comenzar</a>
+        </div>
+    </div>
+
+    <!-- Sección de imágenes -->
+    <div class="container py-5">
+        <h2 class="text-center fw-bold mb-4">Nuestros Servicios</h2>
+        <div class="row g-4">
+
+            <!-- Tarjeta 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow">
+                    <img 
+                        src="{% static 'miapp/images/imagen_perfil.png' %}" 
+                        class="card-img-top" 
+                        alt="Impresión 3D"
+                        style="height: 220px; object-fit: cover;"
+                    >
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Impresión 3D</h5>
+                        <p class="card-text">Fabricamos prototipos y piezas personalizadas con tecnología FDM y resina.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow">
+                    <img 
+                        src="https://images.unsplash.com/photo-1565106430482-8f6e74349ca1?w=600" 
+                        class="card-img-top" 
+                        alt="Fabricación Digital"
+                        style="height: 220px; object-fit: cover;"
+                    >
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Fabricación Digital</h5>
+                        <p class="card-text">Corte láser y mecanizado CNC para materiales como madera, acrílico y metal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow">
+                    <img 
+                        src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600" 
+                        class="card-img-top" 
+                        alt="Diseño y Prototipado"
+                        style="height: 220px; object-fit: cover;"
+                    >
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Diseño y Prototipado</h5>
+                        <p class="card-text">Desde el concepto hasta el prototipo final, acompañamos todo el proceso.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

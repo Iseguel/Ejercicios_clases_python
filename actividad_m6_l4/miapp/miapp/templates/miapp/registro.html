@@ -1,0 +1,82 @@
+{% extends 'miapp/base.html' %}
+
+
+{% block content %}
+{% csrf_token %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h1 class="fw-bold mb-3 text-center">
+                        REGISTRO
+                    </h1>
+                    <p class="lead text-center text-muted mb-4">
+                        Completa el siguiente registro para crear tu cuenta.
+                    </p>
+
+                    {% if mensaje %}
+                    <div class="alert alert-success" role="alert">
+                        {{ mensaje }}
+                    </div>
+                    {% endif %}
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+
+                            {% if form.name.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.name.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+
+                            {% if form.email.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.email.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.edad.label_tag }}
+                            {{ form.edad }}
+
+                            {% if form.edad.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.edad.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Enviar mensaje
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
