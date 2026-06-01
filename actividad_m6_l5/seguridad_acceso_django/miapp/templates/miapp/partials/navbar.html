@@ -1,0 +1,77 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+
+        <!-- Nombre o marca del sitio -->
+        <span class="navbar-brand">MyProject</span>
+
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}"
+                style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">
+                    Cerrar sesión
+                </button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-primary">
+                Iniciar sesión
+            </a>
+        {% endif %}
+        <h2 style="color: white; margin-left: 20px;">{{ user.first_name }} {{ user.last_name }}  </h2>  
+
+        <!-- Botón hamburguesa.
+            Este botón permite mostrar u ocultar el menú. -->
+        <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#menu"
+            aria-controls="menu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 
+            Menú colapsable.
+            collapse: indica que el menú puede ocultarse o mostrarse.
+            navbar-collapse: aplica estilos propios de Bootstrap para navbar.
+            text-end: alinea el texto hacia la derecha.
+            id="menu": este id se conecta con el botón mediante data-bs-target="#menu".
+        -->
+        <div class="collapse navbar-collapse text-end" id="menu">
+            <ul class="navbar-nav ms-auto align-items-end">
+
+                <!-- Enlace a la página de inicio -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Inicio</a>
+                </li>
+
+                <!-- Enlace a la página de contacto -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/contacto/">Contacto</a>
+                </li>
+
+                <!-- Enlace a la página de nosotros -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/nosotros/">Nosotros</a>
+                </li>
+
+                <!-- Enlace a la página de productos -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/productos/">Productos</a>
+                </li>
+                <!-- Enlace a la página de perfil -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/perfil/">Perfil</a>
+                </li>
+                 <!-- Enlace a la página de tareas -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/tareas/">Tareas</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
