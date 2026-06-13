@@ -1,0 +1,118 @@
+{% extends 'miapp/base.html' %}
+{% load static %}   
+
+{% block content %}
+{# Estilos específicos solo para la página de login #}
+<style>
+    body {
+        background-image: url('{% static "miapp/images/fondo-login.png" %}');
+
+        background-size: cover;      /* Cubre toda la pantalla sin deformar */
+        background-position: center; /* Centra la imagen */
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* La imagen no se mueve al hacer scroll */
+    }
+
+    /* Capa oscura semitransparente encima de la imagen
+       para que el formulario sea legible */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;                          /* Equivale a top/right/bottom/left: 0 */
+        background: rgba(0, 0, 0, 0.45);   /* Ajusta el 0.45 para más/menos oscuridad */
+        z-index: 0;
+    }
+
+    /* El contenedor del form debe ir por encima de la capa oscura */
+    .container {
+        position: relative;
+        z-index: 1;
+    }
+</style>
+
+<div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card" style="width: 100%; max-width: 460px; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.10); border-radius: 12px;">
+        <div class="card-body p-5">
+
+            <h4 class="card-title text-center mb-4 fw-bold">Inicio de sesión</h4>
+
+            {% if form.errors %}
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <span>⚠️ &nbsp;<strong>Usuario o contraseña incorrectos.</strong></span>
+                </div>
+            {% endif %}
+
+            <form method="post" action="">
+                {% csrf_token %}
+
+                <!-- Campo: Usuario -->
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Usuario</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="id_username"
+                        class="form-control"
+                        placeholder="Tu nombre de usuario"
+                        autocomplete="username"
+                        required
+                    />
+                </div>
+
+                <!-- Campo: Contraseña con ojito show/hide -->
+                <div class="mb-4">
+                    <label for="id_password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <input
+                            type="password"
+                            name="password"
+                            id="id_password"
+                            class="form-control"
+                            placeholder="Tu contraseña"
+                            autocomplete="current-password"
+                            required
+                        />
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="togglePassword()"
+                            id="eyeBtn"
+                            title="Mostrar/ocultar contraseña"
+                            aria-label="Mostrar u ocultar contraseña"
+                        >
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <input type="hidden" name="next" value="{{ next }}" />
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Iniciar sesión
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{# El script va aquí para que se inyecte justo antes del </body> de base.html #}
+<script>
+    function togglePassword() {
+        const input = document.getElementById('id_password');
+        const btn   = document.getElementById('eyeBtn');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            btn.textContent = '👁️';
+        }
+    }
+</script>
+{% endblock %}

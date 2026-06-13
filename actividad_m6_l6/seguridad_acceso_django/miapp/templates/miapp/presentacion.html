@@ -1,0 +1,30 @@
+{% extends 'miapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container py-5">
+
+     
+
+    <div class="card" style="max-width: 500px; margin: auto;">
+        <div class="card-body">
+            <h2 class="card-title">{{ nombre }}</h2>
+            <img 
+                        src="{% static 'miapp/images/imagen_perfil.png' %}"   
+                        class="card-img-top" 
+                        alt="Imagen de Perfil"
+                        style="height: 220px; object-fit: cover;"
+                    >
+
+            <p><strong>Nombre:</strong> {{ nombre }}</p>
+            <p><strong>Edad:</strong> {{ edad }} años</p>
+            <p><strong>Ciudad:</strong> {{ ciudad }}</p>
+            <p><strong>Descripción:</strong> {{ Descripcion }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
