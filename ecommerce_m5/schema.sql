@@ -69,8 +69,3 @@ CREATE TABLE detalle_pedido (
     PRIMARY KEY (id_pedido, id_producto)
 );
 
--- Índices para las consultas más frecuentes (filtrar por categoría,
--- por usuario, por producto vendido)
-CREATE INDEX idx_producto_categoria ON producto(id_categoria);
-CREATE INDEX idx_pedido_usuario ON pedido(id_usuario);
-CREATE INDEX idx_detalle_producto ON detalle_pedido(id_producto);

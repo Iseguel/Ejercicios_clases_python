@@ -38,7 +38,7 @@ psql -d ecommerce_db -f transaction.sql
 
 ## 3. Evidencia de ejecución de las consultas
 
-Los valores de esta sección son los esperados según los datos cargados en `seed.sql` y después de ejecutar `transaction.sql` una vez. **Reemplazar por la salida real de `psql` al entregar** (por ejemplo, con `psql -d ecommerce_db -f queries.sql > evidencia_consultas.txt`).
+Los valores de esta sección son los esperados según los datos cargados en `seed.sql` y después de ejecutar `transaction.sql` una vez. 
 
 ### Consulta 1 — Productos con su categoría (extracto)
 
