@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% block title %}Mi sesión{% endblock %}
+{% block content %}
+<h1 class="h4 mb-3">Información de la sesión</h1>
+<div class="card shadow-sm">
+    <table class="table mb-0">
+        <tr><th class="bg-light" style="width:200px">Usuario</th><td>{{ usuario.username }}</td></tr>
+        <tr><th class="bg-light">Correo</th><td>{{ usuario.email }}</td></tr>
+        <tr><th class="bg-light">Fecha de registro</th><td>{{ usuario.date_joined }}</td></tr>
+        <tr><th class="bg-light">Última conexión</th><td>{{ usuario.last_login|default:"—" }}</td></tr>
+        <tr><th class="bg-light">Clave de sesión</th><td><code>{{ session_key }}</code></td></tr>
+        <tr><th class="bg-light">Expira el</th><td>{{ session_expiry }}</td></tr>
+    </table>
+</div>
+{% endblock %}
