@@ -1,0 +1,9 @@
+# Django Framework
+Django==4.2.13
+
+# PostgreSQL database driver
+# Necesario si se utiliza PostgreSQL como motor de base de datos.
+psycopg2-binary==2.9.9
+
+# Para gestionar variables de entorno y configuraciones secretas (ej. .env)
+python-decouple==3.8
