@@ -96,37 +96,41 @@ Para entrar a `/productos/admin/` se necesita una cuenta. Puedes:
 
 ## 7. Evidencia
 
-> Reemplazar cada placeholder por una captura real antes de entregar.
-
 ### 7.1 Listado de productos
 `/productos/admin/` con sesión activa, mostrando los productos cargados (nombre, categoría, precio, stock).
 
-`[CAPTURA: listado en /productos/admin/]`
+![CAPTURA: listado en /productos/admin/](img/productos_admin.png)
 
 ### 7.2 Formulario de creación
 `/productos/admin/crear/` con los campos del producto y del stock inicial completados.
 
-`[CAPTURA: formulario de creación, y/o el mensaje de éxito tras guardar]`
+![CAPTURA: formulario de creación](img/crear_producto.png)
+
+![CAPTURA: mensaje de éxito tras guardar](img/crear_producto_exito.png)
 
 ### 7.3 Formulario de edición
 `/productos/admin/<id>/editar/` modificando un producto existente.
 
-`[CAPTURA: formulario de edición precargado con los datos del producto]`
+![CAPTURA: formulario de edición](img/editar_producto.png)
+
+![CAPTURA: mensaje de éxito tras guardar](img/editar_producto_exito.png)
 
 ### 7.4 Eliminación
 Página de confirmación antes de eliminar un producto, y el mensaje de éxito tras confirmar.
 
-`[CAPTURA: pantalla de confirmación de /productos/admin/<id>/eliminar/]`
+![CAPTURA: pantalla de confirmación de /productos/admin/<id>/eliminar/](img/confirmacion_eliminar.png)
+
+![CAPTURA: mensaje de éxito tras eliminar](img/eliminar_producto_exito.png)
 
 ### 7.5 Panel administrativo de Django
 `/admin/`, iniciando sesión con el superusuario, mostrando `Categoria`, `Producto` y `Stock` registrados y navegables.
 
-`[CAPTURA: panel /admin/ con los tres modelos visibles]`
+![CAPTURA: panel admin](img/panel_admin.png)
 
 ### 7.6 Catálogo público actualizado
 `/productos/`, sin necesidad de sesión, mostrando los mismos productos que el panel de administración (confirmando que ambas vistas leen la misma base de datos).
 
-`[CAPTURA: /productos/ con los productos cargados]`
+![CAPTURA: /productos/ sin sesion](img/catalogo_publico.png)
 
 ## 8. Notas técnicas relevantes
 
